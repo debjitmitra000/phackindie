@@ -85,16 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
     
                 // After 2 seconds, change to the static PNG
-                setTimeout(() => {
-                    ghostElement.innerHTML = `<img src="cloth.png" alt="Ghost 2" height="400px">`;
+                // setTimeout(() => {
+                //     ghostElement.innerHTML = `<img src="cloth.png" alt="Ghost 2" height="400px">`;
     
-                    // Make the PNG visible after the GIF
-                    gsap.to(ghostElement, {
-                        opacity: 1,
-                        duration: 0, // Optional duration for the fade-in effect
-                        ease: 'power1.out'
-                    });
-                }, 2000); // Show the PNG after the GIF
+                //     // Make the PNG visible after the GIF
+                //     gsap.to(ghostElement, {
+                //         opacity: 1,
+                //         duration: 0, // Optional duration for the fade-in effect
+                //         ease: 'power1.out'
+                //     });
+                // }, 2000); // Show the PNG after the GIF
     
                 // Fade out the PNG after 2 seconds if needed
                 setTimeout(() => {
@@ -120,13 +120,58 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
     
 
+    const manjulikaDiagonalMove = gsap.fromTo(
+        '.ghost3',
+        { y: '100%', x: '-40%', opacity: 1 }, // Starts from below and slightly to the left
+        {
+            y: '0%', x: '40%', // Moves up and to the right
+            opacity: 1, // Stays visible throughout
+            duration: 5,
+            ease: 'power1.out',
+            scrollTrigger: {
+                trigger: '.ghost3',
+                start: () => `left+=${window.innerWidth * 3.4}`, // Adjust starting point based on viewport width
+                end: () => `+=400`, // Adjust end point for smooth transition
+                scrub: true, // Ensures the animation follows the scroll
+            }
+        }
+    );
+    
+    
+    const kingSimpleMove = gsap.fromTo(
+        '.king',
+        { x: '100%', opacity: 1 }, // Starts from off-screen to the right
+        {
+            x: '0%', // Moves to the center of the screen
+            opacity: 1, // Stays visible throughout
+            duration: 8,
+            ease: 'power1.out',
+            scrollTrigger: {
+                trigger: '.king',
+                start: () => `left+=${window.innerWidth * 4.5}`, // Adjust starting point based on viewport width
+                end: () => `+=400`, // Adjust end point for smooth transition
+                scrub: true, // Ensures the animation follows the scroll
+                onUpdate: (self) => {
+                    // Check if the animation is near the end (e.g., 90% progress)
+                    if (self.progress > 0.9) {
+                        const dancerElement = document.querySelector('.dancer img');
+                        dancerElement.src = 'dancer.gif';
+                    }
+                }
+            }
+        }
+    );
+    
+    
+    
     const handleAudioPlayback = (triggerElement, audioElement, sectionIndex) => {
         ScrollTrigger.create({
             trigger: triggerElement,
-            start: `left+=${3224 * sectionIndex}`, // Start based on section index
-            end: `left+=${3224 * (sectionIndex + 1)}`, // End when leaving the section
+            start: `left+=${(3224 * sectionIndex)-200}`, // Start based on section index
+            end: `left+=${3224 * (sectionIndex + 1)-400}`, // End when leaving the section
             onEnter: () => {
                 audioElement.currentTime = 0; // Reset audio to the beginning
                 audioElement.play().catch(error => {
