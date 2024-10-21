@@ -31,7 +31,7 @@ section:nth-child(3){
     background-image: url('manjulikaBG.png');
 }
 section:nth-child(4) {
-    background-image: url('city.png');
+    background-image: url('kanchanaBG.png');
 }
 section:nth-child(5){
     background-image: url('city.png');
@@ -68,7 +68,7 @@ section:nth-child(5){
     transform: translateY(-50%);
     width: 150px;
     pointer-events: none;
-    opacity: 01;
+    opacity: 1;
     transition: all 0.5s linear;
     filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));
 }
@@ -104,4 +104,112 @@ section:nth-child(5){
     opacity: 0.9;
     transition: all 0.5s linear;
     filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));
+}
+#kanchana{
+    position: relative; 
+    top: 50%;
+    left: 50%; 
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 1;
+    transition: all 0.5s linear;
+    filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));
+}
+#chacha{
+    position: relative; 
+    top: 0%;
+    left: 37%; 
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 1;
+    transition: all 0.5s linear;
+    filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));
+}
+#kid{
+    position: relative; 
+    top: -56%;
+    left: 60%; 
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 1;
+    transition: all 0.5s linear;
+    filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.8));
+}
+.welcome {
+    position: absolute;
+    top: 30%;
+    left: 100px;
+    /* transform: translateX(-50%); */
+    padding: 10px 20px;
+    color: orange;
+    font-size: 80px;
+    text-align: center;
+    font-weight: 1000;
+}
+
+.welcome p {
+    margin: 0;
+    color: orange; /* Set text color to orange */
+    -webkit-text-stroke: 2px red; /* Red outline */
+    text-shadow: 4px 4px 10px blue; /* Blue shadow */
+}
+
+.s{
+    position: relative; 
+    top: 50%;
+    left: 40%; 
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 1;
+    transition: all 0.5s linear;
+    filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.8));
+}
+.check {
+    position: relative;
+    top: 30%;
+    left: 15%;
+    /* transform: translateX(-50%); */
+    padding: 10px 20px;
+    color: orange;
+    font-size: 80px;
+    text-align: center;
+    font-weight: 1000;
+}
+
+.check p {
+    margin: 0;
+    color: orange; /* Set text color to orange */
+    -webkit-text-stroke: 2px red; /* Red outline */
+    text-shadow: 4px 4px 10px white; /* Blue shadow */
+}
+
+.thank {
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    color: orange;
+    font-size: 100px;
+    text-align: center;
+    font-weight: 1000;
+}
+
+.thank p {
+    margin: 0;
+    color: orange; /* Set text color to orange */
+    -webkit-text-stroke: 2px red; /* Red outline */
+    text-shadow: 4px 4px 10px blue; /* Blue shadow */
+}
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black; /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it appears above all content */
 }

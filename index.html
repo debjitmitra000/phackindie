@@ -9,13 +9,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+    <<div id="preloader">
+        <img src="ploader.gif" alt="Loading..." width="300px" />
+    </div>
     <div class="horizontal-scroll top-layer">
         <section>
-            <button id="audioButton">Play Section 1 Audio</button>
-            <div class="ghost ghost1">
-                <!-- <img src="stree.png" alt="Ghost 1" height="400px"> -->
+            <button id="audioButton">Permit Audio</button>
+            <div class="welcome">
+                <p align="center">Are You Boreed Of Watching</p>
+                <p align="center">Annabelle, Conjuring,</p>
+                <p align="center">Or Pumpkin Shit?</p>
             </div>
-            <audio id="audio1" src="a.mp3" loop></audio>
+            <div class="s">
+                <img src="scroll.gif" alt="" width="200px">
+            </div>
+            <div class="check">
+                <p align="center">Let's Check Some</p>
+                <p align="center">Indian Cult Classic Ghosts</p>
+            </div>
+            <audio id="audio1" src="startend.mp3" loop></audio>
         </section>
         <section>
             <div class="ghost ghost2">
@@ -39,19 +51,61 @@
             <audio id="audio3" src="manjulika.mp3" loop></audio>
         </section>
         <section>
-            <div class="ghost ghost4">
-                <!-- <img src="stree.png" alt="Ghost 4" height="400px"> -->
+            <div class="ghost ghost4" id="kanchana">
+                <img src="kanchana.png" alt="kanchana" height="400px">
             </div>
-            <audio id="audio4" src="stree.mp3" loop></audio>
+            <div class="ghost ghost4" id="chacha">
+                <img src="chacha.png" alt="chacha" height="400px">
+            </div>
+            <div class="ghost ghost4" id="kid">
+                <img src="kid.png" alt="kid" height="400px">
+            </div>
+            <audio id="audio4" src="kanchana.mp3" loop></audio>
         </section>
         <section>
-            <div class="ghost ghost5">
-                <!-- <img src="stree.png" alt="Ghost 5" height="400px"> -->
+            <div class="thank">
+                <p align="center">Thanks For Watching</p>
+                <p align="center">BTW It's 'ভূত চতুর্দশী'</p>
+                <p align="center">Not Haloween</p>
             </div>
-            <audio id="audio5" src="a.mp3" loop></audio>
         </section>
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Function to check screen size and update content accordingly
+        function checkScreenSize() {
+            if (window.innerWidth < 1300) {
+            // Create a message element
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: black;
+                color: white;
+                font-size: 24px;
+                text-align: center;
+                z-index: 1000; /* Ensure it appears above other content */
+            `;
+            message.innerHTML = 'This website contains horizontal scroll. To get the best experience, check on desktop.';
+            
+            // Clear the body and append the message
+            document.body.innerHTML = '';
+            document.body.appendChild(message);
+        }
+    } 
+
+        // Initial check
+        checkScreenSize();
+
+        // Check on resize
+        window.onresize = checkScreenSize;
+    </script>
 </body>
 </html>

@@ -1,3 +1,8 @@
+window.onload = function() {
+    const preloader = document.getElementById('preloader');
+    preloader.style.display = 'none';
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const topLayer = document.querySelector('.top-layer');
     const totalScrollWidth = topLayer.scrollWidth - window.innerWidth;
@@ -7,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const audio2 = document.getElementById('audio2');
     const audio3 = document.getElementById('audio3');
     const audio4 = document.getElementById('audio4');
-    const audio5 = document.getElementById('audio5');
 
     document.body.style.height = `${totalScrollWidth + window.innerHeight}px`;
 
@@ -84,18 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ease: 'power1.out'
                 });
     
-                // After 2 seconds, change to the static PNG
-                // setTimeout(() => {
-                //     ghostElement.innerHTML = `<img src="cloth.png" alt="Ghost 2" height="400px">`;
-    
-                //     // Make the PNG visible after the GIF
-                //     gsap.to(ghostElement, {
-                //         opacity: 1,
-                //         duration: 0, // Optional duration for the fade-in effect
-                //         ease: 'power1.out'
-                //     });
-                // }, 2000); // Show the PNG after the GIF
-    
+                
                 // Fade out the PNG after 2 seconds if needed
                 setTimeout(() => {
                     gsap.to(ghostElement, {
@@ -165,29 +158,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     );
     
+    // Animation for kanchana coming from the top
+gsap.fromTo(
+    '#kanchana',
+    { y: '-100%', opacity: 0 },
+    {
+        y: '0%',
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power1.out',
+        scrollTrigger: {
+            trigger: '#kanchana',
+            start: () => `left+=${window.innerWidth * 6.5}`, // Adjust start position
+            end: () => `+=300`, // Adjust for smoother transition
+            scrub: true,
+            once: false, // Ensures it can be triggered again on re-entry
+            onEnter: () => gsap.fromTo('#kanchana', { y: '-100%', opacity: 0 }, { y: '0%', opacity: 1 }),
+            onLeaveBack: () => gsap.set('#kanchana', { y: '-100%', opacity: 0 }), // Reset position when scrolling back
+            onUpdate: (self) => {
+                // Trigger animations for chacha and kid once kanchana's animation is near complete
+                if (self.progress >= 0.95) {
+                    chachaAnimation.play();
+                    kidAnimation.play();
+                }
+            }
+        }
+    }
+);
+
+// Animation for chacha coming from behind kanchana to the left
+const chachaAnimation = gsap.fromTo(
+    '#chacha',
+    { x: '70%', opacity: 0 },
+    {
+        x: '-30%',
+        opacity: 1,
+        duration: 5,
+        ease: 'power1.out',
+        scrollTrigger: {
+            trigger: '#kanchana',
+            start: () => `left+=${window.innerWidth * 7}`, // Adjust start position
+            end: () => `+=300`, // Adjust for smoother transition
+            scrub: true,
+            once: false, // Ensures it can be triggered again on re-entry
+        },
+        paused: true // Initially paused, to be played when kanchana finishes
+    }
+);
+
+// Animation for kid coming from behind kanchana to the right
+const kidAnimation = gsap.fromTo(
+    '#kid',
+    { x: '-70%', opacity: 0 },
+    {
+        x: '30%',
+        opacity: 1,
+        duration: 5,
+        ease: 'power1.out',
+        scrollTrigger: {
+            trigger: '#kanchana',
+            start: () => `left+=${window.innerWidth * 7}`, // Adjust start position
+            end: () => `+=300`, // Adjust for smoother transition
+            scrub: true,
+            once: false, // Ensures it can be triggered again on re-entry
+        },
+        paused: true // Initially paused, to be played when kanchana finishes
+    }
+);
+
     
-    
-    const handleAudioPlayback = (triggerElement, audioElement, sectionIndex) => {
+    const handleAudioPlayback = (triggerElement, audioElement, startPx, endPx) => {
         ScrollTrigger.create({
             trigger: triggerElement,
-            start: `left+=${(3224 * sectionIndex)-200}`, // Start based on section index
-            end: `left+=${3224 * (sectionIndex + 1)-400}`, // End when leaving the section
+            start: `left+=${startPx}`, // Start playback at specific pixel value
+            end: `left+=${endPx}`, // End playback at specific pixel value
             onEnter: () => {
                 audioElement.currentTime = 0; // Reset audio to the beginning
                 audioElement.play().catch(error => {
                     console.error('Audio play failed:', error);
                 });
             },
-            onLeave: () => audioElement.pause(),
-            onEnterBack: () => audioElement.play(),
-            onLeaveBack: () => audioElement.pause(),
+            onLeave: () => audioElement.pause(), // Pause audio when leaving the end of the range
+            onEnterBack: () => audioElement.play(), // Resume playing when scrolling back into the range
+            onLeaveBack: () => audioElement.pause(), // Pause when leaving the range backwards
         });
     };
 
-    // Attach audio playback to each section (sectionIndex starts from 0)
-    handleAudioPlayback('.ghost1', audio1, 0);
-    handleAudioPlayback('.ghost2', audio2, 1);
-    handleAudioPlayback('.ghost3', audio3, 2);
-    handleAudioPlayback('.ghost4', audio4, 3);
-    handleAudioPlayback('.ghost5', audio5, 4);
+    // Attach audio playback to each section using start and end pixel values
+    handleAudioPlayback('.ghost1', audio1, -100, 2900); // Adjust the start and end pixels as needed
+    handleAudioPlayback('.ghost2', audio2, 3220, 6448);
+    handleAudioPlayback('.ghost3', audio3, 5000, 8800);
+    handleAudioPlayback('.ghost4', audio4, 9673, 12896);
+
 });
